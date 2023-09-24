@@ -20,22 +20,18 @@ Get-Item $hive -ErrorAction SilentlyContinue | ForEach-Object {
     $providerMatched = (Get-ItemPropertyValue $_.PsPath -Name $providerName) -eq $amdProviderName
     $pegMatched = (Get-ItemPropertyValue $_.PsPath -Name $driverDescription).Contains($peg) 
     $igdMatched = (Get-ItemPropertyValue $_.PsPath -Name $driverDescription).Contains($igd)
-    if ($providerMatched -and $igdMatched) {
-        $description = (Get-ItemPropertyValue $_.PsPath -Name $driverDescription)
-        Write-Host "Found AMD integrated graphics card `"$description`" at $_. Not modifying ..."
-    }
-    if ($providerMatched -and $pegMatched) {
+    if ($providerMatched -and ($pegMatched -or $igdMatched)) {
         $amdGpuLocations.Add($_) | Out-Null
     }
 }
 
 if ($amdGpuLocations.Count -eq 0) {
-    Write-Host "No AMD Radeon RX graphics card could be found on your system. Exiting ..."
+    Write-Host "No AMD Radeon graphics card could be found on your system. Exiting ..."
     exit 1
 } else {
     foreach ($gpu in $amdGpuLocations) {
         $description = (Get-ItemPropertyValue $gpu.PsPath -Name $driverDescription)
-        Write-Host "Found AMD Radeon RX graphics card `"$description`" at $gpu."
+        Write-Host "Found AMD Radeon graphics card `"$description`" at $gpu."
     }
 }
 

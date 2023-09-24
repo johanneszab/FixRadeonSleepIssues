@@ -23,7 +23,7 @@ This scripts looks in the Registry under the path `HKLM:\SYSTEM\ControlSet001\Co
 
 You can test the fix by locking your desktop (press `Win + L`) and see if it crashes after the displays turns off.
 
-Disabling Ultra Low Power State (ULPS) seems to not broadly effect the idle power consumption of the RX graphics cards. My RX 6600 XT idles at 3-4W with a single 4K Display connected via display port after disabling ULPS.
+Disabling Ultra Low Power State (ULPS) seems to not broadly effect the idle power consumption of the RX graphics cards. My RX 6600 XT idles at 3-4W with a single 4K Display connected via display port after disabling ULPS according to AMD Software: Adrenalin Edition.
 
 ## Tested on:
 
